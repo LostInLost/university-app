@@ -15,7 +15,7 @@ return new class extends Migration
             $table->ulid('id')->primary();
             $table->foreignUlid('admin_id');
             $table->foreignUlid('city_id')->nullable();
-            $table->string('nim', 15);
+            $table->string('nim', 15)->unique();
             $table->string('name');
             $table->foreign('admin_id')->references('id')->on('admins')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('city_id')->references('id')->on('cities')->nullOnDelete()->cascadeOnUpdate();

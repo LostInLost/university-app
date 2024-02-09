@@ -2,15 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Charts\StudentChart;
 use App\Models\City;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
+
     public function index()
     {
-        return view('admin.dashboard');
+        $studentByCity = new StudentChart;
+        $cities = City::has('students')->get();
+        $arrayCity = [];
+        $studentCount = [];
+
+        foreach($cities as $city) {
+            array_push($arrayCity, $city->name);
+            array_push($studentCount, $city->students()->count());
+        }
+        
+        $studentByCity->labels($arrayCity);
+        $studentByCity->dataset('Student By City', 'pie', $studentCount);
+        $studentByCity->minimalist(true);
+        $studentByCity->tooltip(true);
+        $studentByCity->displayLegend(true);
+        $studentByCity->type('line');
+
+        
+        return view('admin.dashboard', [
+            'studentByCityChart' => $studentByCity
+        ]);
     }
 
     public function studentsIndex()
@@ -27,6 +49,17 @@ class DashboardController extends Controller
         $cities = City::get(['id', 'name']);
 
         return view('admin.students.add', [
+            'cities' => $cities
+        ]);
+    }
+
+    public function studentsEditIndex($id)
+    {
+        $student = Student::find($id);
+        $cities = City::get(['id', 'name']);
+
+        return view('admin.students.edit', [
+            'student' => $student->load('city'),
             'cities' => $cities
         ]);
     }

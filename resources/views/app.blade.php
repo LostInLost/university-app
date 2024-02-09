@@ -19,7 +19,9 @@
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
     <script src="{{ asset('js/datatables.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.0.2/echarts-en.min.js" charset="utf-8"></script>
+    <script src="{{ asset('js/echarts.js')}}"></script>
     {{-- End Import Style  --}}
 </head>
 

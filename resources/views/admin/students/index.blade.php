@@ -40,7 +40,7 @@
                             <td>{{ \Carbon\Carbon::parse($student->born_date)->format('m/d/Y') }}</td>
                             <td>{{ $student->name }}</td>
                             <td>
-                                <a href="cities/{{ $student->id }}/edit" class="btn btn-warning">
+                                <a href="students/{{ $student->id }}/edit" class="btn btn-warning">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                         <path
@@ -103,7 +103,7 @@
                     text: 'Export Excel',
                     sheetName: 'City',
                     exportOptions: {
-                        columns: [0, 1]
+                        columns: [0, 1, 2, 3]
                     }
                 }, {
                     extend: 'pdfHtml5',
@@ -112,11 +112,11 @@
                     text: 'Export PDF',
                     sheetName: 'City',
                     exportOptions: {
-                        columns: [0, 1]
+                        columns: [0, 1, 2, 3]
                     },
                     customize: function(doc) {
                         // console.log(doc)
-                        doc.content[1].table.widths = ['*', '*']
+                        doc.content[1].table.widths = ['*', '*', '*', '*']
                         doc.styles.tableBodyOdd.alignment = 'center'
                         doc.styles.tableBodyEven.alignment = 'center'
                     }

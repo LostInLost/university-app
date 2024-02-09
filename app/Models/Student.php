@@ -13,4 +13,9 @@ class Student extends Model
     use HasFactory, HasUlids;
 
     protected $guarded = ['id'];
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
 }

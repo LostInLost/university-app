@@ -45,6 +45,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post('/', [StudentController::class, 'destroy']);
             Route::get('/add', [DashboardController::class, 'studentsAddIndex'])->name('admin.students.add');
             Route::post('/add', [StudentController::class, 'store']);
+            Route::get('/{id}/edit', [DashboardController::class, 'studentsEditIndex']);
+            Route::post('/{id}/edit', [StudentController::class, 'update']);
         });
     });
 });

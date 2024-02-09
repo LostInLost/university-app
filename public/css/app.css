@@ -1,0 +1,16 @@
+.poppins {
+    font-family: "Poppins", sans-serif;
+}
+
+.cursor-pointer:hover {
+    cursor: pointer;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+* {
+    box-sizing: border-box;
+}

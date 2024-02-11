@@ -45,13 +45,13 @@ class StudentController extends Controller
 
         $student = Student::find($id);
 
-        if(!$student) return redirect()->back()->with('error', 'Student not found.');
+        if (!$student) return redirect()->back()->with('error', 'Student not found.');
 
         $updateStudent = $student->update($request->all());
-        
+
         if (!$updateStudent) return redirect()->back()->with('error', 'Update Student failed.');
 
-        return redirect()->route('admin.students.index')->with('success', 'Student successfully added.');  
+        return redirect()->route('admin.students.index')->with('success', 'Student successfully updated.');
     }
 
 
@@ -60,7 +60,7 @@ class StudentController extends Controller
         $student = Student::find($request->student_id ?? '');
 
         if (!$student) return redirect()->back()->with('error', 'Student not found.');
-        
+
         $student->delete();
         return redirect()->back()->with('success', 'Student successfully deleted.');
     }

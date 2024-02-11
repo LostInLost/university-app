@@ -25,27 +25,29 @@
                     <div class="row my-3">
                         <div class="col">
                             <label for="nim">NIM</label>
-                            <input type="text" value="{{ old('nim') ?? $student->nim }}" required placeholder="Type here..."
-                                class="form-control" name="nim" id="nim">
+                            <input type="text" value="{{ old('nim') ?? $student->nim }}" required
+                                placeholder="Type here..." class="form-control" name="nim" id="nim">
                         </div>
                         <div class="col">
                             <label for="name">Name</label>
-                            <input type="text" required value="{{ old('name') ?? $student->name }}" placeholder="Type here..."
-                                class="form-control" name="name" id="name">
+                            <input type="text" required value="{{ old('name') ?? $student->name }}"
+                                placeholder="Type here..." class="form-control" name="name" id="name">
                         </div>
                     </div>
                     <div class="row my-3">
                         <div class="col">
                             <label for="bord-date">Born Date</label>
-                            <input type="date" required value="{{ old('born_date') ?? $student->born_date }}" placeholder="Type here..."
-                                class="form-control" name="born_date" id="born-date">
+                            <input type="date" required value="{{ old('born_date') ?? $student->born_date }}"
+                                placeholder="Type here..." class="form-control" name="born_date" id="born-date">
                         </div>
                         <div class="col">
-                            <label for="sex">Sex</label>
+                            <label for="sex">Gender</label>
                             <select name="sex" id="sex" class="form-select" required>
-                                <option value="">Select the sex</option>
-                                <option value="L" {{ (old('sex') ?? $student->sex) === 'L' ? 'selected' : '' }}>Man</option>
-                                <option value="P" {{ (old('sex') ?? $student->sex) === 'P' ? 'selected' : '' }}>Woman</option>
+                                <option value="">Select the Gender</option>
+                                <option value="L" {{ (old('sex') ?? $student->sex) === 'L' ? 'selected' : '' }}>Male
+                                </option>
+                                <option value="P" {{ (old('sex') ?? $student->sex) === 'P' ? 'selected' : '' }}>Female
+                                </option>
                             </select>
                         </div>
                     </div>

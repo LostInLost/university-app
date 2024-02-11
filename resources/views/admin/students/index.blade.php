@@ -29,6 +29,7 @@
                         <th>NIM</th>
                         <th>Born Date</th>
                         <th>Name</th>
+                        <th>City</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -39,7 +40,19 @@
                             <td class="show">{{ $student->nim }}</td>
                             <td>{{ \Carbon\Carbon::parse($student->born_date)->format('m/d/Y') }}</td>
                             <td>{{ $student->name }}</td>
+                            <td>{{ $student->city->name }}</td>
                             <td>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                    data-bs-target="#popupDetail"
+                                    onclick="showDetail('{{ $student->name }}', '{{ $student->nim }}', '{{ $student->born_date }}', '{{ $student->sex }}', '{{ $student->city->name }}', '{{ $student->address }}')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                        <path
+                                            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z" />
+                                        <path
+                                            d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
+                                    </svg>
+                                </button>
                                 <a href="students/{{ $student->id }}/edit" class="btn btn-warning">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                         fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
@@ -81,7 +94,60 @@
                                 <button type="submit" class="btn btn-danger">Yes, delete it</button>
                             </div>
                         </form>
-
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" tabindex="-1" id="popupDetail" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Detail <span></span></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center" id="loadingDetail">
+                            <h1>Loading...</h1>
+                        </div>
+                        <div class="modal-body" id="modalDetail">
+                            <div class="row my-3">
+                                <div class="col">
+                                    <label for="nim">NIM</label>
+                                    <input type="text" disabled required placeholder="Type here..." class="form-control"
+                                        name="nim" id="nim">
+                                </div>
+                                <div class="col">
+                                    <label for="name">Name</label>
+                                    <input type="text" required placeholder="Type here..." class="form-control"
+                                        name="name" id="name" disabled>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col">
+                                    <label for="bord-date">Born Date</label>
+                                    <input type="date" required placeholder="Type here..." class="form-control"
+                                        name="born_date" id="born-date" disabled>
+                                </div>
+                                <div class="col">
+                                    <label for="sex">Gender</label>
+                                    <input type="text" class="form-control" name="" id="sex" disabled>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" name="" id="city" disabled>
+                                </div>
+                            </div>
+                            <div class="row my-3">
+                                <div class="col">
+                                    <label for="address">Address</label>
+                                    <textarea name="address" class="form-control" id="address" disabled cols="30" rows="5"
+                                        placeholder="Type here..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -98,25 +164,34 @@
                 dom: '<"mb-3"B><"d-flex justify-content-between"lf>t<"d-flex justify-content-between"ip>',
                 buttons: [{
                     extend: 'csvHtml5',
-                    title: 'City',
+                    title: 'Students',
                     className: 'btn-success',
-                    text: 'Export Excel',
-                    sheetName: 'City',
+                    text: `<div class="d-flex gap-3 align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-spreadsheet" viewBox="0 0 16 16">
+                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v4h10V2a1 1 0 0 0-1-1zm9 6h-3v2h3zm0 3h-3v2h3zm0 3h-3v2h2a1 1 0 0 0 1-1zm-4 2v-2H6v2zm-4 0v-2H3v1a1 1 0 0 0 1 1zm-2-3h2v-2H3zm0-3h2V7H3zm3-2v2h3V7zm3 3H6v2h3z"/>
+                        </svg>
+                        <span>Export Excel</span>
+                        </div>`,
+                    sheetName: 'Students',
                     exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        columns: [0, 1, 2, 3, 4]
                     }
                 }, {
                     extend: 'pdfHtml5',
-                    title: 'City',
+                    title: 'Students',
                     className: 'btn-secondary',
-                    text: 'Export PDF',
-                    sheetName: 'City',
+                    text: `<div class="d-flex gap-3 align-items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5zM1.6 11.85H0v3.999h.791v-1.342h.803q.43 0 .732-.173.305-.175.463-.474a1.4 1.4 0 0 0 .161-.677q0-.375-.158-.677a1.2 1.2 0 0 0-.46-.477q-.3-.18-.732-.179m.545 1.333a.8.8 0 0 1-.085.38.57.57 0 0 1-.238.241.8.8 0 0 1-.375.082H.788V12.48h.66q.327 0 .512.181.185.183.185.522m1.217-1.333v3.999h1.46q.602 0 .998-.237a1.45 1.45 0 0 0 .595-.689q.196-.45.196-1.084 0-.63-.196-1.075a1.43 1.43 0 0 0-.589-.68q-.396-.234-1.005-.234zm.791.645h.563q.371 0 .609.152a.9.9 0 0 1 .354.454q.118.302.118.753a2.3 2.3 0 0 1-.068.592 1.1 1.1 0 0 1-.196.422.8.8 0 0 1-.334.252 1.3 1.3 0 0 1-.483.082h-.563zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638z"/>
+                        </svg>
+                        <span>Export PDF</span>
+                        </div>`,
+                    sheetName: 'Students',
                     exportOptions: {
-                        columns: [0, 1, 2, 3]
+                        columns: [0, 1, 2, 3, 4]
                     },
                     customize: function(doc) {
-                        // console.log(doc)
-                        doc.content[1].table.widths = ['*', '*', '*', '*']
+                        doc.content[1].table.widths = ['*', '*', '*', '*', '*']
                         doc.styles.tableBodyOdd.alignment = 'center'
                         doc.styles.tableBodyEven.alignment = 'center'
                     }
@@ -129,6 +204,33 @@
         const changeModalValue = (name, id) => {
             $('#popupDelete-name').text(name)
             $('#deleteStudentId').val(id)
+        }
+
+        const showDetail = (name, nim, born_date, sex, city_name, address) => {
+
+            // WITH API
+            // $('#loadingDetail').removeClass('d-none')
+            // $('#modalDetail').addClass('d-none')
+            // $.get('http://localhost:8000/api/admin/dashboard/students/' + id, function(data, status) {
+            //     if (status !== 'success') return
+            //     // console.log(data.data.name)
+            //     $('#loadingDetail').addClass('d-none')
+            //     $('#modalDetail').removeClass('d-none')
+            //     $('#nim').val(data.student.nim)
+            //     $('#name').val(data.student.name)
+            //     $('#born-date').val(data.student.born_date)
+            //     $('#sex').val(data.student.sex)
+            //     $('#city').val(data.student.city.name)
+            //     $('#address').text(data.student.address)
+            // })
+
+            $('#loadingDetail').addClass('d-none')
+            $('#nim').val(nim)
+            $('#name').val(name)
+            $('#born-date').val(born_date)
+            $('#sex').val(sex === 'L' ? 'Male' : 'Female')
+            $('#city').val(city_name)
+            $('#address').text(address)
         }
     </script>
 @endsection

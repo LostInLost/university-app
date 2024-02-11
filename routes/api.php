@@ -21,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('admin', [AdminController::class, 'create']);
 Route::get('admin/{id}/dashboard', [AdminController::class, 'indexApi']);
+
+Route::get('admin/dashboard/students/{id}', [AdminController::class, 'detailStudentApi']);

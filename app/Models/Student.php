@@ -14,8 +14,24 @@ class Student extends Model
 
     protected $guarded = ['id'];
 
+    // protected $appends = ['born'];
+
     public function city()
     {
-        return $this->belongsTo(City::class);
+        return $this->belongsTo(City::class, 'city_id', 'id');
     }
+
+    // protected function Born(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn () => Carbon::parse($this->born_date)->format('Y')
+    //     );
+    // }
+
+    // protected function CityName(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn () => $this->city()->first(['name'])->name
+    //     );
+    // }
 }

@@ -41,11 +41,11 @@
                                 class="form-control" name="born_date" id="born-date">
                         </div>
                         <div class="col">
-                            <label for="sex">Sex</label>
+                            <label for="sex">Gender</label>
                             <select name="sex" id="sex" class="form-select" required>
-                                <option value="">Select the sex</option>
-                                <option value="L" {{ old('sex') === 'L' ? 'selected' : '' }}>Man</option>
-                                <option value="P" {{ old('sex') === 'P' ? 'selected' : '' }}>Woman</option>
+                                <option value="">Select the Gender</option>
+                                <option value="L" {{ old('sex') === 'L' ? 'selected' : '' }}>Male</option>
+                                <option value="P" {{ old('sex') === 'P' ? 'selected' : '' }}>Female</option>
                             </select>
                         </div>
                     </div>
